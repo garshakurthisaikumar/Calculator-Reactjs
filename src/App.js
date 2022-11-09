@@ -1,13 +1,25 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import "./App.css";
 
 
 const App = () => {
   const [input, setinput] = useState("");
+
   const handler = (e) => {
-    setinput(e.target.value);
-  };
+     setinput(e.target.value);  
+}
+
+useEffect(()=>{
+  document.addEventListener('keydown',detectKeyDown,true)
+},[])
+
+const detectKeyDown =(e) =>{
+  console.log("Clicked key" , e.key);
+
+  }
+  // onkeydown={()=> setInput("")}
+  
   return (
     <div className="Calcu">
       <p>Calculator</p>
@@ -17,51 +29,64 @@ const App = () => {
         value={input}
         name="input"
         onChange={handler}
+
+        onKeyPress={(e)=>{
+          if(e.key==="Enter"){
+            setinput(eval(input));
+          }
+          if(e.key==="c"){
+            setinput("");
+          }
+          if(e.key==="Backspace"){
+            setinput(input.slice(0,-1));
+          }
+        }}
+  
       />
-      <button className="erace" onClick={() => setinput("")}>
+      <button className="erace" onClick={() => setinput("")} >
         c
       </button>
       <br />
-      <button className="one" onClick={() => setinput(input + "1")}>
+      <button className="one" onClick={() => setinput(input + "1")} >
         1
       </button>
-      <button className="two" onClick={() => setinput(input + "2")}>
+      <button className="two" onClick={() => setinput(input + "2")} >
         2
       </button>
-      <button className="three" onClick={() => setinput(input + "3")}>
+      <button className="three" onClick={() => setinput(input + "3")} >
         3
       </button>
-      <button className="divi" onClick={() => setinput(input + "/")}>
+      <button className="divi" onClick={() => setinput(input + "/")} >
         /
       </button>
       <br />
-      <button className="four" onClick={() => setinput(input + "4")}>
+      <button className="four" onClick={() => setinput(input + "4")} >
         4
       </button>
-      <button className="five" onClick={() => setinput(input + "5")}>
+      <button className="five" onClick={() => setinput(input + "5")} >
         5
       </button>
-      <button className="six" onClick={() => setinput(input + "6")}>
+      <button className="six" onClick={() => setinput(input + "6")} >
         6
       </button>
-      <button className="substract" onClick={() => setinput(input + "-")}>
+      <button className="substract" onClick={() => setinput(input + "-")} >
         -
       </button>
       <br />
-      <button className="seven" onClick={() => setinput(input + "7")}>
+      <button className="seven" onClick={() => setinput(input + "7")} >
         7
       </button>
-      <button className="eight" onClick={() => setinput(input + "8")}>
+      <button className="eight" onClick={() => setinput(input + "8")} >
         8
       </button>
-      <button className="nine" onClick={() => setinput(input + "9")}>
+      <button className="nine" onClick={() => setinput(input + "9")} >
         9
       </button>
-      <button className="plus" onClick={() => setinput(input + "+")}>
+      <button className="plus" onClick={() => setinput(input + "+")} >
         +
       </button>
       <br />
-      <button className="dot" onClick={() => setinput(input + ".")}>
+      <button className="dot" onClick={() => setinput(input + ".")} >
         .
       </button>
       <button className="zero" onClick={() => setinput(input + "0")}>
@@ -75,12 +100,15 @@ const App = () => {
       >
         =
       </button>
-      <button className="multipli" onClick={() => setinput(input + "*")}>
+      <button className="multipli" onClick={() => setinput(input + "*")} >
         *
+      </button>
+      <button className="back" onClick={() => setinput(input.slice(0,-1))}>
+        back
       </button>
     </div>
   );
-};
+      };
 export default App;
 
 
